@@ -52,7 +52,7 @@ function redirectSearch(e) {
       :placeholder="$t('searchPlaceholder')"
       class="flex-auto pr-2"
     />
-    <div class="border-l" style="height: 44px">
+    <!-- <div class="border-l" style="height: 44px">
       <UiDropdown
         top="3.5rem"
         right="1.0rem"
@@ -64,6 +64,6 @@ function redirectSearch(e) {
         <span v-text="searchSelectedOption" class="ml-3" />
         <Icon name="arrow-down" class="ml-1 mr-2 pr-1" />
       </UiDropdown>
-    </div>
+    </div> -->
   </div>
 </template>

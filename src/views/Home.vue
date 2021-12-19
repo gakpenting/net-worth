@@ -31,57 +31,19 @@ onMounted(() => {
 
 <template>
   <div class="mt-4">
-    <Container class="flex items-center mb-4">
+    <Container class="flex justify-between items-center mb-4">
       <UiButton class="pl-3 pr-0 w-full max-w-[420px]">
         <SearchWithFilters />
       </UiButton>
-      <UiDropdown
-        class="ml-2 mr-auto z-10"
-        top="3.5rem"
-        right="1.25rem"
-        @select="selectCategory($event)"
-        :items="[
-          {
-            text: $tc('explore.categories.all'),
-            action: '',
-            count: orderedSpaces.length,
-            selected: !selectedCategory
-          },
-          ...categoriesOrderedBySpaceCount
-            .filter(c => spacesPerCategory[c])
-            .map(c => ({
-              text: $tc('explore.categories.' + c),
-              action: c,
-              count: spacesPerCategory[c],
-              selected: selectedCategory === c
-            }))
-        ]"
-      >
-        <UiButton
-          class="pr-3 whitespace-nowrap"
-          :disabled="!orderedSpaces.length"
-        >
-          <Icon size="14" name="apps" class="mt-1 mr-2" />
-          <span v-if="selectedCategory">
-            {{ $tc('explore.categories.' + selectedCategory) }}
-          </span>
-          <span v-else>
-            {{ $tc('explore.categories.all') }}
-          </span>
-          <Icon size="14" name="arrow-down" class="mt-1 mx-1" />
-        </UiButton>
-        <template v-slot:item="{ item }">
-          <div class="flex">
-            <span class="mr-3">{{ item.text }}</span>
-            <span class="flex ml-auto mt-[-3px]">
-              <UiCounter :counter="item.count" class="my-auto" />
-            </span>
-          </div>
-        </template>
-      </UiDropdown>
+    
+      
       <div class="ml-3 text-right hidden md:block whitespace-nowrap">
         {{ $tc('spaceCount', [_n(orderedSpacesByCategory.length)]) }}
+          <UiButton class="mx-2">
+        Create Generative Art
+      </UiButton>
       </div>
+     
     </Container>
     <Container :slim="true">
       <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-4">

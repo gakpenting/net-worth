@@ -67,7 +67,7 @@ onMounted(() => setTitle());
               class="flex items-center"
               style="font-size: 24px; padding-top: 4px"
             >
-              snapshot
+              Akash NFT generative art
             </router-link>
           </div>
           <div :key="web3.account">

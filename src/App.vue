@@ -52,8 +52,8 @@ watch(modalOpen, val => {
   <div :class="skin" id="app" class="overflow-hidden pb-4 font-serif text-base">
     <UiLoading v-if="app.loading || !app.init" class="overlay big" />
     <div v-else>
-      <Scroller />
-      <div :class="{ 'sm:ml-[68px]': !domain }">
+  
+      <div >
         <Topnav />
         <router-view :key="$route.path" class="flex-auto" />
       </div>
