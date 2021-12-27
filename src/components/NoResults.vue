@@ -9,7 +9,7 @@ const text = computed(() => t('noResultsFound'));
 <template>
   <div class="mb-3 text-center">
     <Block v-if="block" class="pt-1">
-      {{ text }}
+      There is no NFT or Art that you own, to create one, click 'Create Generative Art'
     </Block>
     <div v-else>{{ text }}</div>
   </div>

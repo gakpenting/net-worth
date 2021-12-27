@@ -47,52 +47,18 @@ onMounted(() => {
     </Container>
     <Container :slim="true">
       <div class="grid lg:grid-cols-4 md:grid-cols-3 gap-4">
-        <div
-          v-for="space in orderedSpacesByCategory.slice(0, limit)"
-          :key="space.id"
-        >
-          <router-link
-            :to="{ name: 'spaceProposals', params: { key: space.id } }"
-          >
-            <!-- Added mb-0 to remove mb-4 added by block component -->
-            <Block
-              class="text-center extra-icon-container mb-0 hover-border"
-              style="height: 266px"
-            >
-              <div class="relative inline-block mb-2">
-                <Token
-                  :space="space"
-                  symbolIndex="space"
-                  size="82"
-                  class="mb-1"
-                />
-                <UiCounter
-                  v-if="space.activeProposals"
-                  :counter="space.activeProposals"
-                  class="absolute top-0 right-0 !bg-green"
-                />
-              </div>
-              <h3
-                v-text="_shorten(space.name, 16)"
-                class="mb-0 pb-0 mt-0 text-[22px] !h-[32px] overflow-hidden"
-              />
-              <div class="mb-[12px] text-color">
-                {{
-                  $tc('members', space.followers, {
-                    count: _n(space.followers)
-                  })
-                }}
-              </div>
-              <FollowButton class="!mb-0" :space="space" />
-            </Block>
-          </router-link>
-        </div>
+      
       </div>
       <NoResults
         :block="true"
-        v-if="Object.keys(orderedSpacesByCategory).length < 1"
+      
       />
     </Container>
     <div ref="endElement" />
+     <ModalStart
+      :open="true"
+      />
+    
+ 
   </div>
 </template>
