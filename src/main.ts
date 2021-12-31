@@ -4,7 +4,6 @@ import { Buffer } from 'buffer';
 import { createApp, h, provide } from 'vue';
 import { LockPlugin } from '@snapshot-labs/lock/plugins/vue3';
 import options from '@/helpers/auth';
-import '../snapshot-spaces/skins';
 import App from '@/App.vue';
 import router from '@/router';
 import mixins from '@/mixins';

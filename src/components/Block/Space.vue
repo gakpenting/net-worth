@@ -5,7 +5,7 @@ import { useWeb3 } from '@/composables/useWeb3';
 import { useApp } from '@/composables/useApp';
 import { useSpaceSubscription } from '@/composables/useSpaceSubscription';
 import { useFollowSpace } from '@/composables/useFollowSpace';
-import verified from '@/../snapshot-spaces/spaces/verified.json';
+
 
 const props = defineProps({
   space: Object
@@ -17,7 +17,7 @@ const { web3Account } = useWeb3();
 const { explore } = useApp();
 
 const nbrMembers = explore.value.spaces[props.space.id].followers;
-const isVerified = verified[props.space.id] || 0;
+const isVerified =  0;
 
 const isAdmin = computed(() => {
   const admins = props.space?.admins?.map(address => address.toLowerCase());

@@ -1,7 +1,7 @@
 import memoize from 'lodash/memoize';
 import { isAddress } from '@ethersproject/address';
 import getProvider from '@snapshot-labs/snapshot.js/src/utils/provider';
-import { ModuleTransaction } from '@/../snapshot-plugins/src/plugins/safeSnap';
+
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { pack } from '@ethersproject/solidity';
 import { hexDataLength, isHexString } from '@ethersproject/bytes';
@@ -33,24 +33,9 @@ interface Token {
   logoUri: string;
 }
 
-export interface SendAssetModuleTransaction extends ModuleTransaction {
-  type: 'transferNFT';
-  recipient: string;
-  collectable: Collectable;
-}
 
-export interface TransferFundsModuleTransaction extends ModuleTransaction {
-  type: 'transferFunds';
-  amount: string;
-  recipient: any;
-  token: Token;
-}
 
-export interface ContractInteractionModuleTransaction
-  extends ModuleTransaction {
-  type: 'contractInteraction';
-  abi: string[];
-}
+
 
 const EXPLORER_API_URLS = {
   '1': 'https://api.etherscan.io/api',
@@ -276,56 +261,10 @@ export const removeHexPrefix = (hexString: string) => {
   return hexString.startsWith('0x') ? hexString.substr(2) : hexString;
 };
 
-const encodePackageMultiSendTransaction = (transaction: ModuleTransaction) => {
-  const data = transaction.data || '0x';
-  return pack(
-    ['uint8', 'address', 'uint256', 'uint256', 'bytes'],
-    [
-      transaction.operation,
-      transaction.to,
-      transaction.value,
-      hexDataLength(data),
-      data
-    ]
-  );
-};
 
-export const multiSendTransaction = (
-  transactions: ModuleTransaction[] | ModuleTransaction,
-  nonce: number
-): ModuleTransaction => {
-  if (!Array.isArray(transactions)) return transactions;
 
-  const multiSendContract = new Interface(MultiSendABI);
-  const transactionsEncoded =
-    '0x' +
-    transactions
-      .map(encodePackageMultiSendTransaction)
-      .map(removeHexPrefix)
-      .join('');
-  const value = '0';
-  const data = multiSendContract.encodeFunctionData('multiSend', [
-    transactionsEncoded
-  ]);
 
-  return {
-    to: MULTISEND_CONTRACT_ADDRESS,
-    operation: '1',
-    value,
-    nonce: nonce.toString(),
-    data
-  };
-};
 
-export const formatBatchTransaction = (
-  batch: ModuleTransaction[],
-  nonce = 0
-): ModuleTransaction => {
-  if (batch.length === 1) {
-    return { ...batch[0], nonce: nonce.toString() };
-  }
-  return multiSendTransaction(batch, nonce);
-};
 
 const shrinkCollectableData = (collectable): Collectable => {
   return {
@@ -337,89 +276,10 @@ const shrinkCollectableData = (collectable): Collectable => {
   };
 };
 
-export const rawToModuleTransaction = ({
-  to,
-  value,
-  data,
-  nonce
-}): ModuleTransaction => {
-  return {
-    to,
-    value,
-    data,
-    nonce,
-    operation: '0'
-  };
-};
 
-export const sendAssetToModuleTransaction = ({
-  recipient,
-  collectable,
-  data,
-  nonce
-}): SendAssetModuleTransaction => {
-  return {
-    data,
-    nonce,
-    recipient,
-    value: '0',
-    operation: '0',
-    type: 'transferNFT',
-    to: collectable.address,
-    collectable: shrinkCollectableData(collectable)
-  };
-};
 
-export const transferFundsToModuleTransaction = ({
-  recipient,
-  amount,
-  token,
-  data,
-  nonce
-}): TransferFundsModuleTransaction => {
-  const base = {
-    operation: '0',
-    nonce,
-    token,
-    recipient
-  };
-  if (token.address === 'main') {
-    return {
-      ...base,
-      type: 'transferFunds',
-      data: '0x',
-      to: recipient,
-      amount: parseAmount(amount),
-      value: parseAmount(amount)
-    };
-  }
-  return {
-    ...base,
-    data,
-    type: 'transferFunds',
-    to: token.address,
-    amount: parseAmount(amount),
-    value: '0'
-  };
-};
 
-export const contractInteractionToModuleTransaction = ({
-  to,
-  value,
-  data,
-  nonce,
-  method
-}): ContractInteractionModuleTransaction => {
-  return {
-    to,
-    data,
-    nonce,
-    operation: getOperation(to),
-    type: 'contractInteraction',
-    value: parseValueInput(value),
-    abi: parseMethodToABI(method)
-  };
-};
+
 
 export const fetchTextSignatures = async (
   methodSignature: string
@@ -440,101 +300,9 @@ const getMethodSignature = (data: string) => {
   return null;
 };
 
-export const decodeContractTransaction = async (
-  network: string,
-  transaction: ModuleTransaction
-): Promise<ContractInteractionModuleTransaction> => {
-  const decode = (abi: string | FunctionFragment[]) => {
-    const contractInterface = new InterfaceDecoder(abi);
-    const method = contractInterface.getMethodFragment(transaction.data);
-    contractInterface.decodeFunction(transaction.data, method); // Validate data can be decode by method.
-    return contractInteractionToModuleTransaction({
-      data: transaction.data,
-      nonce: 0,
-      to: transaction.to,
-      value: transaction.value,
-      method
-    });
-  };
 
-  const contractAbi = await getContractABI(network, transaction.to);
-  if (contractAbi) return decode(contractAbi);
 
-  const methodSignature = getMethodSignature(transaction.data);
-  if (methodSignature) {
-    const textSignatures = await fetchTextSignatures(methodSignature);
-    for (const signature of textSignatures) {
-      try {
-        return decode([FunctionFragment.fromString(signature)]);
-      } catch (e) {
-        console.warn('invalid abi for transaction');
-      }
-    }
-  }
 
-  throw new Error(`we were not able to decode this transaction`);
-};
 
-export const isERC20TransferTransaction = (transaction: ModuleTransaction) => {
-  return getMethodSignature(transaction.data) === '0xa9059cbb';
-};
 
-export const decodeERC721TransferTransaction = (
-  transaction: ModuleTransaction
-) => {
-  const erc721ContractInterface = new InterfaceDecoder(ERC721ContractABI);
-  try {
-    return erc721ContractInterface.decodeFunction(transaction.data);
-  } catch (e) {
-    return null;
-  }
-};
 
-export const decodeTransactionData = async (
-  network: string,
-  transaction: ModuleTransaction
-) => {
-  if (!transaction.data || transaction.data === '0x') {
-    return transferFundsToModuleTransaction({
-      recipient: transaction.to,
-      amount: transaction.value,
-      data: '0x',
-      token: ETHEREUM_COIN,
-      nonce: 0
-    });
-  }
-
-  if (isERC20TransferTransaction(transaction)) {
-    try {
-      const erc20ContractInterface = new InterfaceDecoder(ERC20ContractABI);
-      const params = erc20ContractInterface.decodeFunction(transaction.data);
-      const token = await getGnosisSafeToken(network, transaction.to);
-      return transferFundsToModuleTransaction({
-        recipient: params[0],
-        amount: params[1],
-        data: transaction.data,
-        nonce: 0,
-        token
-      });
-    } catch (e) {
-      console.warn('invalid ERC20 transfer transaction');
-    }
-  }
-
-  const erc721DecodedParams = decodeERC721TransferTransaction(transaction);
-  if (erc721DecodedParams) {
-    const collectable: Collectable = {
-      id: erc721DecodedParams[2],
-      address: transaction.to,
-      name: 'Unknown'
-    };
-    return sendAssetToModuleTransaction({
-      collectable,
-      nonce: 0,
-      data: transaction.data,
-      recipient: erc721DecodedParams[1]
-    });
-  }
-
-  return decodeContractTransaction(network, transaction);
-};

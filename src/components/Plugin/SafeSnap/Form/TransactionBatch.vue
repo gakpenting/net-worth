@@ -2,7 +2,7 @@
 import { clone } from '@snapshot-labs/snapshot.js/src/utils';
 import { useSafesnap } from '@/composables/useSafesnap';
 import chevronIcon from '@/assets/icons/chevron.svg';
-import Plugin from '@/../snapshot-plugins/src/plugins/safeSnap';
+
 
 export default {
   props: ['modelValue', 'index', 'nonce', 'config'],

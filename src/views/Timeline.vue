@@ -10,7 +10,6 @@ import { PROPOSALS_QUERY } from '@/helpers/queries';
 import { useProfiles } from '@/composables/useProfiles';
 import { useFollowSpace } from '@/composables/useFollowSpace';
 import { useWeb3 } from '@/composables/useWeb3';
-import verified from '@/../snapshot-spaces/spaces/verified.json';
 import zipObject from 'lodash/zipObject';
 import { useStore } from '@/composables/useStore';
 import { setPageTitle } from '@/helpers/utils';

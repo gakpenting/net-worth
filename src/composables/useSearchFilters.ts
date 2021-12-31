@@ -1,7 +1,6 @@
 import { computed } from 'vue';
-import skins from '@/../snapshot-spaces/skins';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
-import plugins from '@/../snapshot-plugins/src/plugins';
+
 import validations from '@snapshot-labs/snapshot.js/src/validations';
 import { useApp } from '@/composables/useApp';
 
@@ -9,7 +8,7 @@ export function useSearchFilters() {
   const { strategies, explore } = useApp();
 
   const minifiedSkinsArray = computed(() =>
-    Object.keys(skins).map(s => ({
+    Object.keys([]).map(s => ({
       key: s,
       spaces: explore.value.skins[s] ?? 0
     }))
@@ -44,7 +43,7 @@ export function useSearchFilters() {
       .sort((a, b) => b.spaces - a.spaces);
 
   const minifiedPluginsArray = computed(() =>
-    Object.entries(plugins).map(([key, pluginClass]: any) => {
+    Object.entries([]).map(([key, pluginClass]: any) => {
       const plugin = new pluginClass();
       plugin.key = key;
       plugin.spaces = explore.value.plugins[key] ?? 0;

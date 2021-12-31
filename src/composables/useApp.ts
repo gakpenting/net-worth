@@ -5,8 +5,7 @@ import { getInstance } from '@snapshot-labs/lock/plugins/vue3';
 import { useWeb3 } from '@/composables/useWeb3';
 import { useFollowSpace } from '@/composables/useFollowSpace';
 import networks from '@snapshot-labs/snapshot.js/src/networks.json';
-import verified from '@/../snapshot-spaces/spaces/verified.json';
-import verifiedSpacesCategories from '@/../snapshot-spaces/spaces/categories.json';
+
 
 const state = reactive({
   init: false,
@@ -51,11 +50,7 @@ export function useApp() {
       Object.entries(exploreObj.spaces).map(([id, space]: any) => {
         // map manually selected categories for verified spaces that don't have set their categories yet
         // set to empty array if space.categories is missing
-        space.categories = space.categories?.length
-          ? space.categories
-          : verifiedSpacesCategories[id]?.length
-          ? verifiedSpacesCategories[id]
-          : [];
+        space.categories =  [];
 
         return [id, { id, ...space }];
       })
@@ -81,7 +76,7 @@ export function useApp() {
         // const voters1d = explore.value.spaces[key].voters_1d ?? 0;
         const followers1d = explore.value.spaces[key].followers_1d ?? 0;
         // const proposals1d = explore.value.spaces[key].proposals_1d ?? 0;
-        const isVerified = verified[key] || 0;
+        const isVerified =  1;
         let score = followers1d + followers / 4;
         if (isVerified === 1) score = score * 2;
         const testnet = testnetNetworks.includes(
@@ -96,7 +91,7 @@ export function useApp() {
           testnet
         };
       })
-      .filter(space => !space.private && verified[space.id] !== -1)
+      .filter(space => !space.private )
       .filter(space => space.network === network || !network)
       .filter(space =>
         JSON.stringify(space).toLowerCase().includes(q.toLowerCase())

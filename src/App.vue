@@ -8,7 +8,7 @@ import { useUserSkin } from '@/composables/useUserSkin';
 import { useApp } from '@/composables/useApp';
 import { useWeb3 } from '@/composables/useWeb3';
 import { useNotifications } from '@/composables/useNotifications';
-import aliases from '@/../snapshot-spaces/spaces/aliases.json';
+
 
 const { domain } = useDomain();
 const { loadLocale } = useI18n();
@@ -23,7 +23,7 @@ provide('web3', web3);
 provide('notify', notify);
 
 const space = computed(() => {
-  const key = aliases[domain] || domain || route.params.key;
+  const key = domain || route.params.key;
   return explore.value.spaces?.[key];
 });
 
