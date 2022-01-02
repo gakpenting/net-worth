@@ -88,12 +88,7 @@ export default {
 </script>
 
 <template>
-  <PluginSafeSnapInputAddress
-    v-model="to"
-    :disabled="config.preview"
-    :inputProps="{ required: false }"
-    :label="$t('safeSnap.to')"
-  />
+
 
   <UiInput
     v-model="value"

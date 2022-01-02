@@ -64,14 +64,7 @@ const safeSnapInput = computed({
 
 <template>
   <div>
-    <PluginSafeSnapConfig
-      v-if="loadedResults && safeSnapInput.safes"
-      v-model="safeSnapInput"
-      :proposal="proposal"
-      :preview="true"
-      :config="space.plugins?.safeSnap"
-      :network="space.network"
-    />
+
     <PluginChartsCustomBlock
       v-if="loadedResults && space.plugins?.charts"
       :space="space"

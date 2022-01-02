@@ -138,17 +138,7 @@
   </div>
 
   <teleport to="#modal">
-    <PluginSafeSnapModalOptionApproval
-      :minimumBond="questionDetails?.minimumBond"
-      :open="modalApproveDecisionOpen"
-      :isApproved="questionDetails?.isApproved"
-      :bond="questionDetails?.currentBond"
-      :questionId="questionDetails?.questionId"
-      :tokenSymbol="bondData?.tokenSymbol"
-      :tokenDecimals="bondData?.tokenDecimals"
-      @setApproval="voteOnQuestion"
-      @close="modalApproveDecisionOpen = false"
-    />
+ 
   </teleport>
 </template>
 

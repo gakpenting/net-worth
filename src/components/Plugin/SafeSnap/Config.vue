@@ -61,15 +61,7 @@ export default {
     </h4>
     <div class="p-4">
       <div v-for="(safe, index) in input.safes" v-bind:key="index">
-        <PluginSafeSnapSafeTransactions
-          v-if="!preview || safe.txs.length > 0"
-          :preview="preview"
-          :proposal="proposal"
-          :network="safe.network"
-          :realityAddress="safe.realityAddress"
-          :modelValue="safe.txs"
-          @update:modelValue="updateSafeTransactions(index, $event)"
-        />
+    
       </div>
     </div>
   </div>

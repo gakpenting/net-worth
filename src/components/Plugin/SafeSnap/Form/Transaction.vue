@@ -117,36 +117,6 @@ export default {
       <option value="raw">{{ $t('safeSnap.rawTransaction') }}</option>
     </UiSelect>
 
-    <PluginSafeSnapFormContractInteraction
-      v-if="type === 'contractInteraction'"
-      :config="config"
-      :modelValue="modelValue"
-      :nonce="nonce"
-      @update:modelValue="$emit('update:modelValue', $event)"
-    />
-
-    <PluginSafeSnapFormTransferFunds
-      v-if="type === 'transferFunds'"
-      :config="config"
-      :modelValue="modelValue"
-      :nonce="nonce"
-      @update:modelValue="$emit('update:modelValue', $event)"
-    />
-
-    <PluginSafeSnapFormSendAsset
-      v-if="type === 'transferNFT'"
-      :config="config"
-      :modelValue="modelValue"
-      :nonce="nonce"
-      @update:modelValue="$emit('update:modelValue', $event)"
-    />
-
-    <PluginSafeSnapFormRawTransaction
-      v-if="type === 'raw'"
-      :modelValue="modelValue"
-      :nonce="nonce"
-      :config="config"
-      @update:modelValue="$emit('update:modelValue', $event)"
-    />
+ 
   </UiCollapsible>
 </template>

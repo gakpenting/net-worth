@@ -110,14 +110,7 @@ export default {
     </option>
   </UiSelect>
 
-  <PluginSafeSnapInputAddress
-    v-model="to"
-    :disabled="config.preview"
-    :inputProps="{
-      required: true
-    }"
-    :label="$t('safeSnap.to')"
-  />
+ 
 </template>
 
 <style scoped>

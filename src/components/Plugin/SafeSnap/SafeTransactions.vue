@@ -155,14 +155,7 @@ export default {
     </h4>
     <div class="text-center">
       <div v-for="(batch, index) in input" v-bind:key="index" class="border-b">
-        <PluginSafeSnapFormTransactionBatch
-          :config="transactionConfig"
-          :index="index"
-          :modelValue="batch"
-          :nonce="getBatchNonce(index)"
-          @remove="removeBatch(index)"
-          @update:modelValue="updateTransactionBatch(index, $event)"
-        />
+      
       </div>
 
       <div v-if="!preview || proposalResolved">
@@ -170,18 +163,7 @@ export default {
           {{ $t('safeSnap.addBatch') }}
         </UiButton>
 
-        <PluginSafeSnapFormImportTransactionsButton
-          v-if="!preview"
-          @import="handleImport($event)"
-        />
-
-        <PluginSafeSnapHandleOutcome
-          v-if="preview && proposalResolved"
-          :txs="input"
-          :proposalId="proposal.id"
-          :realityAddress="realityAddress"
-          :network="transactionConfig.network"
-        />
+      
       </div>
     </div>
   </div>

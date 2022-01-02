@@ -59,25 +59,9 @@ export default {
   </UiSelect>
 
   <!-- ADDRESS -->
-  <PluginSafeSnapInputAddress
-    v-else-if="type === 'address'"
-    :disabled="disabled"
-    :inputProps="{
-      required: true
-    }"
-    :label="this.placeholder"
-    :modelValue="value"
-    @update:modelValue="handleInput($event)"
-  />
+
   <!-- Array of X type -->
-  <PluginSafeSnapInputArrayType
-    v-else-if="isArrayType()"
-    :disabled="disabled"
-    :modelValue="value"
-    :name="name"
-    :type="type"
-    @update:modelValue="handleInput($event)"
-  />
+
   <!-- Text input -->
   <UiInput
     v-else

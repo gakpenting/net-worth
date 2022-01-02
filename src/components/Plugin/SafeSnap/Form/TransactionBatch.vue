@@ -79,14 +79,7 @@ export default {
       v-bind:key="index"
       class="mb-2"
     >
-      <PluginSafeSnapFormTransaction
-        :index="index"
-        :modelValue="transaction"
-        :config="config"
-        :nonce="`${nonce + index}`"
-        @remove="removeTransaction(index)"
-        @update:modelValue="updateTransaction(index, $event)"
-      />
+   
     </div>
 
     <Block

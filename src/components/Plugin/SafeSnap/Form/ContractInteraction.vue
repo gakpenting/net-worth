@@ -1,7 +1,7 @@
 <script>
 
 import {
-  contractInteractionToModuleTransaction,
+
   getABIWriteFunctions,
   getContractABI,
   getContractTransactionData
@@ -113,18 +113,6 @@ export default {
             this.parameters
           );
 
-          const transaction = contractInteractionToModuleTransaction({
-            data,
-            to: this.to,
-            value: this.value,
-            nonce: this.nonce,
-            method: this.selectedMethod
-          });
-
-          if (this.plugin.validateTransaction(transaction)) {
-            this.$emit('update:modelValue', transaction);
-            return;
-          }
         }
       } catch (error) {
         console.warn('invalid transaction');
@@ -175,15 +163,7 @@ export default {
 </script>
 
 <template>
-  <PluginSafeSnapInputAddress
-    v-model="to"
-    :disabled="config.preview"
-    :inputProps="{
-      required: true
-    }"
-    :label="$t('safeSnap.to')"
-    @validAddress="handleAddressChanged()"
-  />
+ 
 
   <UiInput
     :disabled="config.preview"
@@ -218,15 +198,7 @@ export default {
     <div v-if="selectedMethod && selectedMethod.inputs.length">
       <div class="divider"></div>
 
-      <PluginSafeSnapInputMethodParameter
-        v-for="(input, index) in selectedMethod.inputs"
-        :key="input.name"
-        :disabled="config.preview"
-        :modelValue="parameters[index]"
-        :name="input.name"
-        :type="input.type"
-        @update:modelValue="handleParameterChanged(index, $event)"
-      />
+   
     </div>
   </div>
 </template>

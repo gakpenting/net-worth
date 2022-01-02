@@ -350,13 +350,7 @@ watchEffect(() => {
           {{ $t('create.addChoice') }}
         </UiButton>
       </Block>
-      <PluginSafeSnapConfig
-        v-if="space?.plugins?.safeSnap"
-        :proposal="proposal"
-        :config="space.plugins?.safeSnap"
-        :network="space.network"
-        v-model="form.metadata.plugins.safeSnap"
-      />
+     
     </template>
     <template #sidebar-right v-if="!preview">
       <Block

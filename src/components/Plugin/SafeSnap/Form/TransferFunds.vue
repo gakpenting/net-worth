@@ -107,20 +107,7 @@ export default {
     </option>
   </UiSelect>
 
-  <PluginSafeSnapInputAddress
-    v-model="to"
-    :disabled="config.preview"
-    :inputProps="{
-      required: true
-    }"
-    :label="$t('safeSnap.to')"
-  />
-  <PluginSafeSnapInputAmount
-    :label="$t('safeSnap.amount')"
-    v-model="value"
-    :decimals="selectedToken?.decimals"
-    :disabled="config.preview"
-  />
+ 
 </template>
 
 <style scoped>
