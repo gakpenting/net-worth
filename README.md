@@ -66,3 +66,75 @@ By default your instance will connect to the hub at `https://testnet.snapshot.or
 ## License
 
 Snapshot is open-sourced software licensed under the © [MIT license](LICENSE).
+
+
+-------------
+translate indonesia 
+<div align="center">
+    <img src="public/icon.svg" height="70" alt="Logo Cuplikan">
+    <h1>Snapshot</h1>
+    <strong>Snapshot adalah klien multi-tata kelola off-chain tanpa gas dengan hasil yang mudah diverifikasi dan sulit untuk dilombakan.</strong>
+</div>
+<br>
+<div align="center">
+    <a href="https://github.com/snapshot-labs/snapshot/actions/workflows/nodejs.yml">
+        <img src="https://github.com/snapshot-labs/snapshot/actions/workflows/nodejs.yml/badge.svg" alt="Node CI">
+    </a>
+    <img src="https://img.shields.io/github/commit-activity/w/snapshot-labs/snapshot" alt="GitHub melakukan aktivitas">
+    <a href="https://github.com/snapshot-labs/snapshot/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22">
+        <img src="https://img.shields.io/github/issues/snapshot-labs/snapshot/help want" alt="Masalah GitHub membutuhkan bantuan">
+    </a>
+    <a href="https://telegram.snapshot.org">
+        <img src="https://img.shields.io/badge/Telegram-white?logo=telegram" alt="Telegram">
+    </a>
+    <a href="https://discord.snapshot.org">
+        <img src="https://img.shields.io/discord/707079246388133940.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
+    </a>
+    <a href="https://twitter.com/SnapshotLabs">
+        <img src="https://img.shields.io/twitter/follow/SnapshotLabs?label=SnapshotLabs&style=flat&logo=twitter&color=1DA1F2" alt="Twitter">
+    </a>
+</div>
+<div align="center">
+    <br>
+    <a href="https://snapshot.org"><b>snapshot.org »</b></a>
+    <br><br>
+    <a href="https://docs.snapshot.org"><b>Dokumentasi</b></a>
+    •
+    <a href="https://features.snapshot.org/feature-requests"><b>Permintaan fitur</b></a>
+    •
+    <a href="https://translate.snapshot.org"><b>Terjemahkan</b></a>
+</div>
+
+## Penyiapan proyek
+
+```
+benang
+```
+
+### Mengkompilasi dan memuat ulang untuk pengembangan
+
+```
+pengembang benang
+```
+
+### Mengkompilasi dan mengecilkan untuk produksi
+
+```
+pembuatan benang
+```
+
+### Lints dan perbaikan file
+
+```
+benang lari lint
+```
+
+### Panduan Pengembangan
+
+Gunakan `http://localhost:3000/#/fabien.eth` untuk menguji kode Anda.
+
+Secara default, instance Anda akan terhubung ke hub di `https://testnet.snapshot.org`. Untuk mengubahnya (atau nilai lainnya), Anda dapat membuat `.env.local` dan menimpa nilai dari `.env`.
+
+## Lisensi
+
+Snapshot adalah perangkat lunak open-source yang dilisensikan di bawah © [MIT license](LICENSE).
